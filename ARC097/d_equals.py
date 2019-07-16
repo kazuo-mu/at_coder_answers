@@ -1,15 +1,3 @@
-# 隣接リスト　作成
-N, M = map(int, input().split())
-
-to = []
-
-for _ in range(N):
-    a, b = map(int, input())
-    to[a-1] = b-1
-    to[b-1] = a-1
-
-
-# Union-Find木, 結合＆判定リクエストを受ける
 class UnionFind():
 
     def __init__(self, n):
@@ -35,3 +23,24 @@ class UnionFind():
         
         self.par[x] = y
         return
+
+
+def main():
+    N, M = map(int, input().split())
+    p = list(map(lambda x: int(x)-1, input().split()))
+
+    uf = UnionFind(N)
+    for i in range(M):
+        x, y = map(int, input().split())
+        uf.unite(x-1, y-1)
+    
+    ans = 0
+    for i in range(N):
+        if uf.same(i, p[i]):
+            ans += 1
+    
+    print(ans)
+
+
+if __name__ == '__main__':
+    main()
